@@ -23,11 +23,15 @@ contract voting{
     uint end_time;
 
     // https://www.unixtimestamp.com/ can be used to calculate start and end time 
-    constructor (string memory _title, uint _start_time, uint _end_time){
+    constructor (string memory _title, uint _start_time, uint _end_time, string[] memory _input_candidates, uint _voters_number){
         title = _title;
         owner = msg.sender;
         start_time = _start_time;
         end_time = _end_time;
+        for(uint i = 0; i < _input_candidates.length ; i++){
+            add_candidate(_input_candidates[i]);
+        }
+        insert_total_participants(_voters_number);
     }
 
     modifier validTime() { // to check if vote is still open based on start and end time
@@ -42,7 +46,7 @@ contract voting{
         _;
     }
 
-    function add_candidate(string memory _name) public { 
+    function add_candidate(string memory _name) private { 
         // add candidates names to the list > voters will choose their index for voting
         require(
             msg.sender == owner,
@@ -59,7 +63,7 @@ contract voting{
 
     }
 
-    function insert_total_participants(uint _total_num) public{ 
+    function insert_total_participants(uint _total_num) private{ 
         // owner setting total number of voters
         require(
             msg.sender == owner,
@@ -267,8 +271,4 @@ contract voting{
         return date_unix_;
 
     }
-
-
-    
-
 }
