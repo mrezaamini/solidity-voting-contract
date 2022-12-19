@@ -1,3 +1,2 @@
-# solidity-sample-projects
-
-solidity projects developed for crypto currency course implemented on ethereum environment
+# Voting Contract
+Implementation of simple solidity contract. Try it with remix ide and ganache on a ethereum network.
